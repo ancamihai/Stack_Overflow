@@ -1,0 +1,76 @@
+<div class="wrapper">
+  <div>
+    <div class="button-container" style="margin-top:50px;">
+      <button class="p-button" (click)="viewUsers()">User(s) settings</button>
+      <button class="p-button" (click)="viewQuestions()">Questions</button>
+      <button class="p-button" (click)="addAnswer(question.questionId)">Add answer</button>
+      <button class="p-button" (click)="logout()">Logout</button>
+    </div>
+
+    <div>
+      <h2 style="text-align: center; color: purple;">Question</h2>
+    </div>
+
+    <div class="card-container" style="max-height: 500px; overflow: auto; margin-bottom:20px;">
+      <mat-card  style="background-color:violet;" class="custom-card">
+        <mat-card-content>
+          <div style="font-size:25px; margin-bottom:10px;">{{ question.title }}</div>
+          <div> Score: {{ questionScore }}</div>
+          <div>Asked by <span style="color:purple;">{{ question.user.username }}&nbsp;&nbsp;&nbsp;<i>User Score:{{getUserScore(question.user.userId)}}&nbsp;&nbsp;&nbsp;</i></span> on {{ question.creationDateTime }}</div>
+          <img *ngIf="question.picture" src="assets/images/{{ question.picture }}" alt="Question Picture" style="max-width: 100%; max-height: 200px; margin-top: 10px;">
+          <div *ngIf="likedQuestion(question.questionId) || dislikedQuestion(question.questionId)" style="margin-top:10px;">{{ question.text }}</div>
+          <div style="margin-top: 20px;">
+            <div class="tags-container">
+              #
+              <span class="tag" *ngFor="let tag of question.tags">{{ tag.name }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div>
+            <button class="like-button" [class.active]="likedQuestion(question.questionId)"  (click)="likeQuestion(question.questionId,question.user.userId)" >
+              Like
+            </button>
+            <button class="dislike-button" [class.active]="dislikedQuestion(question.questionId)" (click)="dislikeQuestion(question.questionId,question.user.userId)">
+              Dislike
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div>
+      <h2 style="text-align: center; color: purple;">Answers</h2>
+      <div class="card-container" style="max-height: 500px; overflow: auto;">
+        <div *ngFor="let answer of answers; let i = index" class="answer-card">
+          <mat-card class="custom-card">
+            <mat-card-content>
+              <div>
+                <div style ="margin-bottom:20px;">
+                  Answer by <span style="color:violet ;"> {{ answer.user.username }}&nbsp;&nbsp;&nbsp;<i>User Score:{{getUserScore(answer.user.userId)}}&nbsp;&nbsp;&nbsp;</i></span> on {{ answer.creationDateTime }}
+                </div>
+                <div> Score: {{getScore(i)}}</div>
+                <div style ="margin-bottom:20px;">
+                  <img *ngIf="answer.picture" src="assets/images/{{ answer.picture }}" alt="Answer Picture" style="max-width: 500px; max-height: 350px;">
+                </div>
+                <div style ="margin-bottom:40px;">
+                  {{ answer.text }}
+                </div>
+              </div>
+              <div class="answer-actions">
+                <button mat-button style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="updateAnswer(answer.answerId)">Update answer</button>
+                <button mat-button style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="deleteAnswer(answer.answerId, answer.user.userId)">Delete answer</button>
+                <button class="like-button" [class.active]="liked(answer.answerId)"  (click)="like(answer.answerId,answer.user.userId)" >
+                  Like
+                </button>
+                <button class="dislike-button" [class.active]="disliked(answer.answerId)" (click)="dislike(answer.answerId,answer.user.userId)">
+                  Dislike
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

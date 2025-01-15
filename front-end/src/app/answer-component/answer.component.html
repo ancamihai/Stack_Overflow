@@ -1,0 +1,29 @@
+<h2  *ngIf="isAddAnswer" style="text-align: center; color: purple; margin-bottom: 20px;">Add answer</h2>
+<h2  *ngIf="!isAddAnswer" style="text-align: center; color: purple; margin-bottom: 20px;">Update answer</h2>
+<div style="width: 500px; height: 400px; background: lavender; border-radius:20px">
+  <span class="p-float-label">
+    <span style="font-size: 20px; color:purple ">{{ answer.question.title }}</span>
+    <label style="color: purple;">Question Title</label>
+  </span>
+
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label style="color: purple;">Text</mat-label>
+    <textarea matInput id="text" style="font-size: 16px;" [(ngModel)]="answer.text" name="text" rows="4" class="ng-dirty" required></textarea>
+  </mat-form-field>
+
+  <span class="p-float-label">
+    <div>
+    <div style="text-align: left; ">
+      <label for="picture"style="color: purple; display: inline-block; margin-left:20px; margin-bottom:50px;" >Picture (Optional)</label>
+      <input id="picture" type="file" style="font-size: 16px; display: inline-block; margin-left: 200px;" (change)="onFileSelected($event)" name="picture" class="ng-dirty">
+    </div>
+    </div>
+  </span>
+
+  <div style="display: flex; justify-content: center; margin-top:100px;">
+    <button *ngIf="isAddAnswer" (click)="redirect()" class="redirect-button" style="margin-right: 30px;">Go back</button>
+    <button *ngIf="!isAddAnswer" (click)="redirectUpdateAnswer()" class="redirect-button" style="margin-right: 30px;">Go back</button>
+    <button  *ngIf="isAddAnswer" (click)="addAnswer()" class="answer-button" style="margin-left: 30px;">Add answer</button>
+    <button  *ngIf="!isAddAnswer" (click)="updateAnswer(answer.answerId, answer.user.userId, answer)" class="answer-button" style="margin-left: 30px;">Update answer</button>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<h1 style="text-align: center; color: purple; margin-bottom: 20px; margin-top:50px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Login</h1>
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 60vh;">
+  <mat-card fxLayout="column" fxLayoutAlign="center center" style="max-width: 500px; padding: 20px; border-radius: 20px;background-color:lavender;" class="custom-input">
+    <mat-form-field appearance="fill" style="width: 100%;" class="custom-input">
+      <mat-label class="custom-input">Username</mat-label>
+      <input matInput type="text" [(ngModel)]="user.username">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label class="custom-input">Password</mat-label>
+      <input matInput type="password" [(ngModel)]="user.password" class="custom-input">
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: center; margin-top: 20px;" class="custom-input">
+      <button mat-raised-button color="primary" class="login-button" (click)="login()">Login</button>
+      <button mat-raised-button color="accent" class="register-button" (click)="redirect()" style="margin-left: 20px;">Register</button>
+    </div>
+  </mat-card>
+</div>

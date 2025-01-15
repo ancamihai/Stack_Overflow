@@ -1,0 +1,59 @@
+<h2  *ngIf="isAddQuestion" style="text-align: center; color: purple; margin-bottom: 20px;margin-top: 50px;">Add question</h2>
+<h2  *ngIf="!isAddQuestion" style="text-align: center; color: purple; margin-bottom: 20px;margin-top: 50px;">Update question</h2>
+<div style="width: 500px; height: 600px; background: lavender; border-radius:20px">
+
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label style="color:purple;">Title</mat-label>
+    <input matInput type="text" [(ngModel)]="question.title" id="title">
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label style="color:purple;">Text</mat-label>
+    <textarea matInput [(ngModel)]="question.text" name="text" rows="4" id="text" required></textarea>
+  </mat-form-field>
+
+  <span class="p-float-label">
+    <div>
+     <div style="text-align: left;">
+      <label for="picture" style="color: purple; display: inline-block; margin-left:20px;">Picture (Optional)</label>
+      <input id="picture" type="file" style="font-size: 16px; display: inline-block; margin-left: 200px;" (change)="onFileSelected($event)" name="picture" class="ng-dirty">
+     </div>
+    </div>
+  </span>
+
+  <div style="margin-bottom:10px;">
+    <mat-form-field style="background-color: purple; border-radius: 10px; margin-left:20px; padding-left:5px; padding-right:5px;">
+      <mat-label style="color: white;">Select Tag</mat-label>
+      <mat-select style="color: white;" [(ngModel)]="selectedTag">
+        <mat-option style="color: white; background-color:  purple;" *ngFor="let tag of tagOptions" [value]="tag">
+          {{tag.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button class="p-button" (click)="addTag(selectedTag)" label="Add Tag" style="margin-left: 80px;">Add tag</button>
+  </div>
+
+  <div>
+    <mat-form-field style="background-color: purple; border-radius: 10px; margin-left:20px; padding-left:5px; padding-right:5px;">
+      <mat-label style="color: white;">Your tags</mat-label>
+      <mat-select style="color: white;" [(ngModel)]="selectedTagToRemove">
+        <mat-option style="color: white; background-color: purple;" *ngFor="let tag of question.tags" [value]="tag">
+          {{tag.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button class="p-button" (click)="remove(selectedTagToRemove)" label="Add Tag" style="margin-left: 80px;">Remove tag</button>
+  </div>
+
+  <div style="margin-bottom: 50px; margin-top: 20px;">
+    <input id="newTagInput" type="text" style="font-size: 16px;" [(ngModel)]="newTag" placeholder="Add New Tag">
+    <button class="p-button" (click)="addNewTag()" label="Add New Tag" style="margin-left: 55px;">Add new tag</button>
+  </div>
+
+  <div style="display: flex; justify-content: center;">
+    <button mat-raised-button color="primary" class="redirect-button" (click)="redirect()" style="margin-right: 30px;">Go back</button>
+    <button mat-raised-button color="accent" class="question-button" *ngIf="isAddQuestion" (click)="addQuestion()" style="margin-left: 30px;">Add question</button>
+    <button mat-raised-button color="accent" class="question-button" *ngIf="!isAddQuestion" (click)="updateQuestion(question.questionId, question.user.userId, question)" style="margin-left: 30px;">Update question</button>
+    </div>
+  </div>

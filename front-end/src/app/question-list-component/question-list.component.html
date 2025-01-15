@@ -1,0 +1,70 @@
+<div class="wrapper" style="margin-top:20px;">
+  <div>
+    <h2 style="text-align: center; color: purple;">Questions</h2>
+  </div>
+  <div class="button-container" style="Margin-bottom:20px;">
+    <button class="p-button" (click)="viewUsers()">User(s) settings</button>
+    <button class="p-button" (click)="addQuestion()">Add question</button>
+    <button class="p-button" (click)="logout()">Logout</button>
+
+    <div class="dropdown-container" style="display: flex; align-items: center;">
+      <mat-form-field style="background-color: lavender; border-radius: 10px; color: purple;">
+        <mat-label style="color: purple;">Filter questions</mat-label>
+        <mat-select [(value)]="selectedCriteria" class="custom-select">
+          <mat-option style="background-color: lavender; color: purple;" value="none">Nothing</mat-option>
+          <mat-option style="background-color: lavender; color: purple;" value="tag">Tag</mat-option>
+          <mat-option style="background-color: lavender; color: purple;" value="own">Own Questions</mat-option>
+          <mat-option style="background-color: lavender; color: purple;" value="user">User</mat-option>
+          <mat-option style="background-color: lavender; color: purple;" value="title">Title</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <label *ngIf="selectedCriteria==='user'" for="filter-by-user" style="color: purple;">Username:</label>
+      <label *ngIf="selectedCriteria==='tag'" for="float-input-invalid" style="color: purple;">Tag:</label>
+      <label *ngIf="selectedCriteria==='title'" for="filter-by-title" style="color: purple;">Title:</label>
+      <span class="p-float-label">
+        <input *ngIf="selectedCriteria==='tag'" id="float-input-invalid" type="text" style="font-size: 16px" pInputText [(ngModel)]="tagToBeFiltered" class="ng-dirty custom-input">
+      </span>
+      <span class="p-float-label">
+        <input *ngIf="selectedCriteria==='title'" id="filter-by-title" type="text" style="font-size: 16px" pInputText [(ngModel)]="titleToBeFiltered" class="ng-dirty custom-input">
+      </span>
+      <span class="p-float-label">
+        <input *ngIf="selectedCriteria==='user'" id="filter-by-user" type="text" style="font-size: 16px" pInputText [(ngModel)]="userToBeFiltered" class="ng-dirty custom-input">
+      </span>
+      <button class="p-button" mat-raised-button (click)="filterQuestions();" style="margin-left: 10px;">Apply Filter</button>
+    </div>
+
+  </div>
+
+  <div class="card-container" style="max-height: 500px; overflow: auto; Margin-bottom:20px;">
+    <mat-card class="custom-card" *ngFor="let question of filteredQuestions; let i = index">
+      <mat-card-content>
+        <div style ="font-size:25px; margin-bottom:10px;">{{ question.title }}</div>
+        <div>Asked by <span style ="color:violet;">{{ question.user.username}}&nbsp;&nbsp;&nbsp;<i>User Score:{{getUserScore(question.user.userId)}}&nbsp;&nbsp;&nbsp;</i> </span> on {{ question.creationDateTime }}</div>
+        <div *ngIf="liked(question.questionId) || disliked(question.questionId)"> Score: {{getScore(i)}}</div>
+        <img *ngIf="question.picture" src="assets/images/{{ question.picture }}" alt="Question Picture" style="max-width: 100%; max-height: 200px; margin-top: 10px;">
+        <div style="margin-top:10px;">{{ question.text }}</div>
+        <div style="margin-top: 20px;">
+          <div class="tags-container">
+            #
+            <span class="tag" *ngFor="let tag of question.tags">{{ tag.name }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div>
+        <button mat-button style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="addAnswer(question.questionId)">Add Answer</button>
+        <button mat-button style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="viewAnswers(question.questionId)">View Answers</button>
+        <button mat-button style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="updateQuestion(question.questionId)">Update Question</button>
+        <button mat-button style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="deleteQuestion(question.questionId)">Delete Question</button>
+          <button class="like-button" [class.active]="liked(question.questionId)"  (click)="like(question.questionId,question.user.userId)" >
+            Like
+          </button>
+          <button class="dislike-button" [class.active]="disliked(question.questionId)" (click)="dislike(question.questionId,question.user.userId)">
+            Dislike
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>

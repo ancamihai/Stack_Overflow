@@ -1,0 +1,28 @@
+<div class="wrapper" style="margin-top:20px;">
+  <div>
+    <h2 style="text-align: center; color: purple;"> Nice to see you back <span style="color: violet;">{{user}}</span>,</h2>
+    <h3 style="text-align: center; color: purple;"> here are the users of the page!</h3>
+  </div>
+
+  <div class="button-container" style="Margin-bottom:20px;">
+    <button class="p-button" (click)="viewQuestions()">View Questions</button>
+    <button class="p-button" (click)="update()">Update account</button>
+    <button class="p-button" (click)="logout()">Logout</button>
+  </div>
+
+  <div class="list-container" style="overflow: scroll; max-height: 500px;">
+    <mat-card class="custom-card" *ngFor="let user of users">
+      <mat-card-content>
+        <div style="margin-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Username: {{ user.username }}</div>
+        <div style="margin-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Email: {{ user.email }}</div>
+        <div style="margin-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">First Name: {{ user.firstName }}</div>
+        <div style="margin-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Last Name: {{ user.lastName }}</div>
+        <div style="margin-bottom:5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Phone number: {{ user.phone }}</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button *ngIf="isModerator() && isUnbanned(user.userId)" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="banUser(user.userId)"> Ban user</button>
+        <button mat-button *ngIf="isModerator() && isBanned(user.userId)" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" color="warn" class="round-button" (click)="unbanUser(user.userId)"> Unban user</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

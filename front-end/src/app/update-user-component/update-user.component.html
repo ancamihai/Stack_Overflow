@@ -1,0 +1,39 @@
+<h2 style="text-align: center; color: purple; margin-bottom: 20px; margin-top:50px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Update account information</h2>
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 60vh;">
+  <mat-card fxLayout="column" fxLayoutAlign="center center" style="max-width: 500px; padding: 20px; border-radius: 20px; background-color: lavender;">
+    <mat-form-field appearance="fill" style="width: 100%;" class="custom-input">
+      <mat-label class="custom-input">Username</mat-label>
+      <input matInput type="text" [(ngModel)]="user.username">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label class="custom-input">Password</mat-label>
+      <input matInput type="password" [(ngModel)]="user.password" class="custom-input">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label class="custom-input">Email</mat-label>
+      <input matInput type="email" [(ngModel)]="user.email" class="custom-input">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label class="custom-input">First Name</mat-label>
+      <input matInput type="text" [(ngModel)]="user.firstName" class="custom-input">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label class="custom-input">Last Name</mat-label>
+      <input matInput type="text" [(ngModel)]="user.lastName" class="custom-input">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label class="custom-input">Telephone number</mat-label>
+      <input matInput type="text" [(ngModel)]="user.phone" class="custom-input">
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <button mat-raised-button color="primary" class="redirect-button" (click)="redirect()" style="margin-right: 20px;">Go back</button>
+      <button mat-raised-button color="accent" class="user-button" (click)="update()">Update account</button>
+    </div>
+  </mat-card>
+</div>
